@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0px;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+}
+
+.bookshelf {
+  background-color: rgb(168, 168, 168);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 200px));
+  grid-auto-rows: max-content;
+  gap: 70px;
+  padding: 20px 20px 0px 20px;
+}
+
+.button-side {
+  background-color: rgb(104, 127, 182);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-section {
+  margin-top: 150px;
+  width: 100%;
+  max-width: 300px;
+}
+
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 200px;
+}
+
+button {
+  border-style: none;
+  border-radius: 30px;
+  font-size: 2rem;
+  padding: 13px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.book {
+  width: 200px;
+  background-color: white;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+.name-answer,
+.author-answer,
+.year-answer {
+  font-size: 1.5rem;
+}
+
+.grouped {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grouped > button {
+  font-size: 0.5em;
+  border-radius: 0px;
+  
+}
+
+label {
+  display: block;
+  margin: 5px 0px 5px 0px;
+  font-size: 1.2rem;
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 10px 15px 10px 15px;
+  border-style: none;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.new-book {
+  margin-top: 30px;
+}
