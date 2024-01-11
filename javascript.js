@@ -1,7 +1,7 @@
 
 const bookShelf = document.querySelector('.bookshelf');
 const addBookButton = document.querySelector('.new-book');
-const showMeButton = document.querySelector('.show');
+const deleteAllBooksButton = document.querySelector('.show');
 const countMeButton = document.querySelector('.count');
 
 const nameInput = document.querySelector('#book-name');
@@ -19,15 +19,22 @@ function Book(name, author, year) {
 };
 
 addBookButton.addEventListener('click', function(event) {
-  event.preventDefault();
+  event.preventDefault(); // ova go sprecuva submit button da isprati info do server, a so toa nisto da ne proraboti kako sto treba.
   checkInputFields();
+  changeInputColor(nameInput, authorInput, yearInput);
 });
 
 countMeButton.addEventListener('click', function() {
   console.log(`mylibrary objects: ${myLibrary.length}`);
 });
 
-
+deleteAllBooksButton.addEventListener('click', function() {
+  myLibrary.length = 0;
+  const allDivs = document.querySelectorAll('.book');
+  allDivs.forEach(div => {
+    div.remove();
+  })
+})
 
 // FUNCTIONS
 
@@ -121,13 +128,77 @@ function clearInputFields() {
   nameInput.value = "";
   yearInput.value = "";
   authorInput.value = "";
+
+  nameInput.style.backgroundColor = `rgb(255, 255, 255)`;
+  yearInput.style.backgroundColor = `rgb(255, 255, 255)`;
+  authorInput.style.backgroundColor = `rgb(255, 255, 255)`;
+  
 }
 
 function checkInputFields() {
-  if (nameInput.value == "" || yearInput.value == "" || authorInput.value == "") {
-    console.log("WHAT");
+  const name = nameInput.value;
+  const year = yearInput.value;
+  const author = authorInput.value;
+
+  if (name === "" && year === "" && author === "") {
+    stylizeWrongInputs();
+
   } else {
-    addBookToLibrary();
-    clearInputFields();
+    
+    if (name === "" || nameInput.value === "Write the book's name!") {
+      nameInput.style.backgroundColor = `rgb(255, 125, 125)`;
+      nameInput.value = "Write the book's name!";
+    }
+    if (author === "" || authorInput.value === "Write the book's author!") {
+      authorInput.style.backgroundColor = `rgb(255, 125, 125)`;
+      authorInput.value = "Write the book's author!";
+
+    }
+    if (year === "" || yearInput.value === "Write the book's year!") {
+      yearInput.style.backgroundColor = `rgb(255, 125, 125)`;
+      yearInput.value = "Write the book's year!";
+
+    }
+    if (name && author && year)  {
+
+      if (nameInput.value !== "Write the book's name!" && authorInput.value !== "Write the book's author!" && yearInput.value !== "Write the book's year!") {
+        addBookToLibrary();
+        clearInputFields();
+      } 
+    }
   }
-}
+};
+
+function stylizeWrongInputs() {
+    nameInput.style.backgroundColor = `rgb(255, 125, 125)`;
+    yearInput.style.backgroundColor = `rgb(255, 125, 125)`;
+    authorInput.style.backgroundColor = `rgb(255, 125, 125)`;
+
+    nameInput.value = "Write the book's name!";
+    yearInput.value = "Write the book's year!";
+    authorInput.value = "Write the book's author!";
+};
+
+function changeInputColor(name, author, year) {
+  name.addEventListener('focus', function() {
+    if (name.value === "Write the book's name!") {
+      name.style.backgroundColor = `rgb(255, 255, 255)`;
+      name.value = "";
+    }
+  })
+
+  author.addEventListener('focus', function() {
+    if (author.value === "Write the book's author!") {
+      author.style.backgroundColor = `rgb(255, 255, 255)`;
+      author.value = "";
+    }
+  })
+
+  year.addEventListener('focus', function() {
+    if (year.value === "Write the book's year!") {
+      year.style.backgroundColor = `rgb(255, 255, 255)`;
+      year.value = "";
+    }
+  })
+};
+
