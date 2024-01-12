@@ -78,13 +78,13 @@ button:active {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 27px;
 }
 
 .grouped > button {
   background-color: #EFEFEF;
   font-size: 0.5em;
   border-radius: 0px;
-  
 }
 .grouped > button:hover {
   background-color: #bababafc;
@@ -112,4 +112,12 @@ input {
 
 .new-book {
   margin-top: 30px;
+}
+
+.read-group {
+  display: flex;
+}
+
+.checkbox {
+  margin-right: 70px;
 }

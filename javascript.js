@@ -16,6 +16,7 @@ function Book(name, author, year) {
   this.name = name;
   this.author = author;
   this.year = year;
+  this.readStatus = false;
 };
 
 addBookButton.addEventListener('click', function(event) {
@@ -45,11 +46,11 @@ function addBookToLibrary() {
 
   let book = new Book(name, author, year);
   myLibrary.push(book);
-  displayBook(book);
+  createAndDisplayBook(book);
 };
 
 
-function displayBook(leBook) {
+function createAndDisplayBook(leBook) {
   const card = document.createElement("div");
   card.className = "book";
   let idCounter = counter++;
@@ -64,7 +65,19 @@ function displayBook(leBook) {
   nameAnswer.className = "name-answer";
   nameAnswer.textContent = `"${leBook.name}"`
   nameGroup.appendChild(name);
+
+  const grouped = document.createElement('div');
+  grouped.className = "grouped";
+
+  const deleteButton = document.createElement("button");
+  deleteButton.className = 'delete-button';
+  deleteButton.textContent = "x";
+
+  grouped.appendChild(name);
+  grouped.appendChild(deleteButton);
+  nameGroup.appendChild(grouped);
   nameGroup.appendChild(nameAnswer);
+
 
   const authorGroup = document.createElement("div");
   authorGroup.className = "author-group";
@@ -85,33 +98,37 @@ function displayBook(leBook) {
   const yearAnswer = document.createElement("div");
   yearAnswer.className = "year-answer";
   yearAnswer.textContent = `${leBook.year}`;
-  const grouped = document.createElement('div');
-  grouped.className = "grouped";
 
-  const deleteButton = document.createElement("button");
-  deleteButton.className = 'delete-button';
-  deleteButton.textContent = "x";
+ 
+  const readGroup = document.createElement('div');
+  readGroup.className = 'read-group';
+  const read = document.createElement('div');
+  read.className = "read-status";
+  read.textContent = "Read:";
+  const checkBox = document.createElement('input');
+  checkBox.type = 'checkbox';
+  checkBox.id = 'checkbox';
+  checkBox.className = 'checkbox';
+  checkBox.checked = leBook.readStatus;
+  readGroup.appendChild(read);
+  readGroup.appendChild(checkBox);
+  
 
-
-  grouped.appendChild(yearAnswer);
-  grouped.appendChild(deleteButton);
   yearGroup.appendChild(year);
-  yearGroup.appendChild(grouped);
-
+  yearGroup.appendChild(yearAnswer);
 
   card.appendChild(nameGroup);
   card.appendChild(authorGroup);
   card.appendChild(yearGroup);
+  card.appendChild(readGroup);
 
   bookShelf.appendChild(card);
-
 
   // DELETING THE BOOK FUNCTIONALITY
   deleteButton.addEventListener('click', function() {
     if (idCounter == card.dataset.number) {
       myLibrary.splice(idCounter, 1);
       document.querySelector(`[data-number="${card.dataset.number}"]`).remove();
-      console.log('ITS WORKING');
     }
     
   });
@@ -135,6 +152,7 @@ function clearInputFields() {
   
 }
 
+// HANDLING THE "WRONG" INPUT FIELD LOGIC.
 function checkInputFields() {
   const name = nameInput.value;
   const year = yearInput.value;
