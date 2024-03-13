@@ -17,13 +17,24 @@ function Book(name, author, year) {
   this.author = author;
   this.year = year;
   this.readStatus = false;
+
+  Book.prototype.toogleReadStatus = function() {
+    if (this.readStatus === false) {
+      this.readStatus = true;
+    }
+    else {
+      this.readStatus = false;
+    }
+  }
 };
 
 addBookButton.addEventListener('click', function(event) {
-  event.preventDefault(); // ova go sprecuva submit button da isprati info do server, a so toa nisto da ne proraboti kako sto treba.
+  event.preventDefault(); // ova go sprecuva submit button da isprati info do server, a bez toa nisto d`a ne proraboti kako sto treba.
   checkInputFields();
-  changeInputColor(nameInput, authorInput, yearInput);
+  
 });
+
+changeInputColor(nameInput, authorInput, yearInput);
 
 countMeButton.addEventListener('click', function() {
   console.log(`mylibrary objects: ${myLibrary.length}`);
@@ -46,7 +57,7 @@ function addBookToLibrary() {
 
   let book = new Book(name, author, year);
   myLibrary.push(book);
-  createAndDisplayBook(book);
+  createAndDisplayBook(book); // a closure that "snapshots" whatever is in the book object.
 };
 
 
@@ -110,6 +121,12 @@ function createAndDisplayBook(leBook) {
   checkBox.id = 'checkbox';
   checkBox.className = 'checkbox';
   checkBox.checked = leBook.readStatus;
+  //tuka negde da pisam enclosure funkcija, ako se klikne na checkboksot, da se povika leBook.toogleReadStatus(), i pak checkbox.checked da se updejtira spored leBook.readstatus.
+  checkBox.addEventListener('click', function() {
+    leBook.toogleReadStatus();
+    checkBox.checked = leBook.readStatus;
+    console.log(leBook.readStatus);
+  })
   readGroup.appendChild(read);
   readGroup.appendChild(checkBox);
   
@@ -126,11 +143,10 @@ function createAndDisplayBook(leBook) {
 
   // DELETING THE BOOK FUNCTIONALITY
   deleteButton.addEventListener('click', function() {
-    if (idCounter == card.dataset.number) {
-      myLibrary.splice(idCounter, 1);
-      document.querySelector(`[data-number="${card.dataset.number}"]`).remove();
+    if (idCounter == idCounter) {
+      myLibrary.splice(idCounter, 1); //Ovde ne e okej, nikogas nema da se izbrisat tocnite 'books' od data-modelot.
+      document.querySelector(`[data-number="${card.dataset.number}"]`).remove(); // se brisat samo od UI-to pravilno.
     }
-    
   });
 
   name.addEventListener('click', function() {
@@ -138,6 +154,8 @@ function createAndDisplayBook(leBook) {
     console.log(`dataset num: ${card.dataset.number}`);
     console.log(`${idCounter == card.dataset.number}`);
     console.log(`just counter: ${counter}`);
+    console.log(myLibrary);
+    console.log(leBook.readStatus);
   });
 };
 
