@@ -17,15 +17,6 @@ function Book(name, author, year) {
   this.author = author;
   this.year = year;
   this.readStatus = false;
-
-  Book.prototype.toogleReadStatus = function() {
-    if (this.readStatus === false) {
-      this.readStatus = true;
-    }
-    else {
-      this.readStatus = false;
-    }
-  }
 };
 
 addBookButton.addEventListener('click', function(event) {
