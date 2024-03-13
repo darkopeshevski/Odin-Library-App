@@ -30,21 +30,6 @@ class Book {
   };
 }
 
-// function Book(name, author, year) {
-//   this.name = name;
-//   this.author = author;
-//   this.year = year;
-//   this.readStatus = false;
-
-//   Book.prototype.toogleReadStatus = function() {
-//     if (this.readStatus === false) {
-//       this.readStatus = true;
-//     }
-//     else {
-//       this.readStatus = false;
-//     }
-//   }
-// };
 
 addBookButton.addEventListener('click', function(event) {
   event.preventDefault(); // ova go sprecuva submit button da isprati info do server, a bez toa nisto d`a ne proraboti kako sto treba.
