@@ -131,6 +131,7 @@ function createAndDisplayBook(leBook) {
   card.appendChild(readGroup);
 
   bookShelf.appendChild(card);
+  console.log(myLibrary.length);
 
   // DELETING THE BOOK FUNCTIONALITY
   deleteButton.addEventListener('click', function() {
@@ -138,6 +139,7 @@ function createAndDisplayBook(leBook) {
       myLibrary.splice(idCounter, 1); //Ovde ne e okej, nikogas nema da se izbrisat tocnite 'books' od data-modelot.
       document.querySelector(`[data-number="${card.dataset.number}"]`).remove(); // se brisat samo od UI-to pravilno.
     }
+    console.log(myLibrary.length);
   });
 
   name.addEventListener('click', function() {
@@ -228,4 +230,3 @@ function changeInputColor(name, author, year) {
     }
   })
 };
-
