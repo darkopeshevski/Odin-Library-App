@@ -165,68 +165,86 @@ function clearInputFields() {
 
 // HANDLING THE "WRONG" INPUT FIELD LOGIC.
 function checkInputFields() {
-  const name = nameInput.value;
-  const year = yearInput.value;
-  const author = authorInput.value;
-
-  if (name === "" && year === "" && author === "") {
-    stylizeWrongInputs();
-
-  } else {
-    
-    if (name === "" || nameInput.value === "Write the book's name!") {
-      nameInput.style.backgroundColor = `rgb(255, 125, 125)`;
-      nameInput.value = "Write the book's name!";
-    }
-    if (author === "" || authorInput.value === "Write the book's author!") {
-      authorInput.style.backgroundColor = `rgb(255, 125, 125)`;
-      authorInput.value = "Write the book's author!";
-
-    }
-    if (year === "" || yearInput.value === "Write the book's year!") {
-      yearInput.style.backgroundColor = `rgb(255, 125, 125)`;
-      yearInput.value = "Write the book's year!";
-
-    }
-    if (name && author && year)  {
-
-      if (nameInput.value !== "Write the book's name!" && authorInput.value !== "Write the book's author!" && yearInput.value !== "Write the book's year!") {
-        addBookToLibrary();
-        clearInputFields();
-      } 
-    }
+  if (nameInput.validity.valueMissing) {
+    nameInput.value = "Enter a name";
+    stylizeWrongInputs(nameInput);
   }
+
+  if (authorInput.validity.valueMissing) {
+    authorInput.value = "Enter an author";
+    stylizeWrongInputs(authorInput);
+  }
+  if (yearInput.validity.valueMissing) {
+    yearInput.placeholder = "Enter a year";
+    stylizeWrongInputs(yearInput);
+  }
+
+
 };
 
-function stylizeWrongInputs() {
-    nameInput.style.backgroundColor = `rgb(255, 125, 125)`;
-    yearInput.style.backgroundColor = `rgb(255, 125, 125)`;
-    authorInput.style.backgroundColor = `rgb(255, 125, 125)`;
 
-    nameInput.value = "Write the book's name!";
-    yearInput.value = "Write the book's year!";
-    authorInput.value = "Write the book's author!";
-};
+function stylizeWrongInputs(input) {
+  input.style.backgroundColor = `rgb(255, 125, 125)`;
+}
+
 
 function changeInputColor(name, author, year) {
   name.addEventListener('focus', function() {
-    if (name.value === "Write the book's name!") {
+    if (name.value === "Enter a name") {
       name.style.backgroundColor = `rgb(255, 255, 255)`;
       name.value = "";
     }
   })
 
   author.addEventListener('focus', function() {
-    if (author.value === "Write the book's author!") {
+    if (author.value === "Enter an author") {
       author.style.backgroundColor = `rgb(255, 255, 255)`;
       author.value = "";
     }
   })
 
   year.addEventListener('focus', function() {
-    if (year.value === "Write the book's year!") {
+    if (yearInput.placeholder === "Enter a year") {
       year.style.backgroundColor = `rgb(255, 255, 255)`;
-      year.value = "";
+      year.placeholder = "";
     }
   })
 };
+
+
+
+
+
+// function checkInputFields() {
+//   const name = nameInput.value;
+//   const year = yearInput.value;
+//   const author = authorInput.value;
+
+//   if (name === "" && year === "" && author === "") {
+//     stylizeWrongInputs();
+
+//   } else {
+    
+//     if (name === "" || nameInput.value === "Write the book's name!") {
+//       nameInput.style.backgroundColor = `rgb(255, 125, 125)`;
+//       nameInput.value = "Write the book's name!";
+//     }
+//     if (author === "" || authorInput.value === "Write the book's author!") {
+//       authorInput.style.backgroundColor = `rgb(255, 125, 125)`;
+//       authorInput.value = "Write the book's author!";
+
+//     }
+//     if (year === "" || yearInput.value === "Write the book's year!") {
+//       yearInput.style.backgroundColor = `rgb(255, 125, 125)`;
+//       yearInput.value = "Write the book's year!";
+
+//     }
+//     if (name && author && year)  {
+
+//       if (nameInput.value !== "Write the book's name!" && authorInput.value !== "Write the book's author!" && yearInput.value !== "Write the book's year!") {
+//         addBookToLibrary();
+//         clearInputFields();
+//       } 
+//     }
+//   }
+// };
